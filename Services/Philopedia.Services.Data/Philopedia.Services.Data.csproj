@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Philopedia.Data.Common\Philopedia.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\Philopedia.Data.Models\Philopedia.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\Philopedia.Web.ViewModels\Philopedia.Web.ViewModels.csproj" />
     <ProjectReference Include="..\Philopedia.Services.Mapping\Philopedia.Services.Mapping.csproj" />
   </ItemGroup>
 

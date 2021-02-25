@@ -26,4 +26,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Philopedia.Data.Models\Philopedia.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\Philopedia.Web.ViewModels\Philopedia.Web.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

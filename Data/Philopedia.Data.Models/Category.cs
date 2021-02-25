@@ -9,6 +9,7 @@
         public Category()
         {
             this.Posts = new HashSet<Post>();
+            this.Images = new HashSet<Image>();
         }
 
         public string Name { get; set; }
@@ -17,7 +18,7 @@
 
         public string Description { get; set; }
 
-        public string ImageUrl { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
     }

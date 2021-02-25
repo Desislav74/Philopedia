@@ -2,17 +2,6 @@
 {
     using System.Reflection;
 
-    using Philopedia.Data;
-    using Philopedia.Data.Common;
-    using Philopedia.Data.Common.Repositories;
-    using Philopedia.Data.Models;
-    using Philopedia.Data.Repositories;
-    using Philopedia.Data.Seeding;
-    using Philopedia.Services.Data;
-    using Philopedia.Services.Mapping;
-    using Philopedia.Services.Messaging;
-    using Philopedia.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -21,6 +10,17 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Philopedia.Data;
+    using Philopedia.Data.Common;
+    using Philopedia.Data.Common.Repositories;
+    using Philopedia.Data.Models;
+    using Philopedia.Data.Repositories;
+    using Philopedia.Data.Seeding;
+    using Philopedia.Services.Data;
+    using Philopedia.Services.Data.Categories;
+    using Philopedia.Services.Mapping;
+    using Philopedia.Services.Messaging;
+    using Philopedia.Web.ViewModels;
 
     public class Startup
     {
@@ -65,6 +65,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
