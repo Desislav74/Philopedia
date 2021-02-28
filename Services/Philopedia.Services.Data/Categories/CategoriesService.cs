@@ -1,12 +1,14 @@
 ﻿namespace Philopedia.Services.Data.Categories
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Philopedia.Data.Common.Repositories;
     using Philopedia.Data.Models;
+    using Philopedia.Services.Mapping;
     using Philopedia.Web.ViewModels.Categories;
 
     public class CategoriesService : ICategoriesService
@@ -48,6 +50,28 @@
 
             await this.categoriesRepository.AddAsync(category);
             await this.categoriesRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAllWhitePaging<T>(int page, int itemsPerPage = 6)
+        {
+            var categories = this.categoriesRepository.All()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .To<T>().ToList();
+            return categories;
+        }
+
+
+        public IEnumerable<T> GetAll<T>(int? count = null)
+        {
+            IQueryable<Category> query =
+                this.categoriesRepository.All().OrderBy(x => x.Name);
+            if (count.HasValue)
+            {
+                query = query.Take(count.Value);
+            }
+
+            return query.To<T>().ToList();
         }
     }
 }

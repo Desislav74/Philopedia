@@ -2,20 +2,35 @@
 {
     using System.Diagnostics;
 
-    using Philopedia.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+    using Philopedia.Services.Data.Categories;
+    using Philopedia.Web.ViewModels;
+    using Philopedia.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        private readonly ICategoriesService categoriesService;
+
+        public HomeController(ICategoriesService categoriesService)
         {
-            return this.View();
+            this.categoriesService = categoriesService;
         }
 
-        public IActionResult Privacy()
+        public IActionResult Index(int id = 1)
         {
-            return this.View();
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 6;
+            var viewModel = new CategoriesListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                Categories = this.categoriesService.GetAllWhitePaging<CategoryInListViewModel>(id, ItemsPerPage),
+            };
+            return this.View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

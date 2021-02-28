@@ -25,22 +25,22 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CategoryInputModel input, string image)
+        public async Task<IActionResult> Create(CategoryInputModel input, string image)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            //try
-            //{
+            try
+            {
                 await this.categoriesService.CreateAsync(input, $"{this.environment.WebRootPath}/images");
-            //}
-            //catch (Exception ex)
-            //{
-            //    this.ModelState.AddModelError(string.Empty, ex.Message);
-            //    return this.View(input);
-            //}
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(input);
+            }
 
             return this.RedirectToAction(nameof(this.Create));
         }

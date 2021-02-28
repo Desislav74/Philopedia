@@ -1,8 +1,27 @@
 ﻿@using Philopedia.Common
+@model Philopedia.Web.ViewModels.Home.CategoriesListViewModel
 @{
-    this.ViewData["Title"] = "Home Page";
+    this.ViewData["Title"] = $"Welcome to {GlobalConstants.SystemName}!";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
 </div>
+
+<div class="row">
+
+    @foreach (var category in this.Model.Categories)
+    {
+        <div class="card col-md-4 border-primary">
+            <img class="card-img-top" src="@category.ImageUrl" alt="@category.Name">
+            <div class="card-body">
+                <h5 class="card-title">@category.Name</h5>
+                <p class="text-truncate">@category.Description</p>
+                <a asp-controller="Posts" asp-action="Create" class="btn btn-primary btn-lg">Create new forum post</a>
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+    <partial name="_PagingPartial" model="@Model" />   
