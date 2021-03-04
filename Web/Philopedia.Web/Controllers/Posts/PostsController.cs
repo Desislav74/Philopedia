@@ -1,14 +1,17 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Philopedia.Data.Models;
-using Philopedia.Services.Data.Categories;
-using Philopedia.Services.Data.Posts;
-using Philopedia.Web.ViewModels.Posts;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace Philopedia.Web.Controllers.Posts
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Philopedia.Data.Models;
+    using Philopedia.Services.Data.Categories;
+    using Philopedia.Services.Data.Posts;
+    using Philopedia.Web.ViewModels.Posts;
+
     public class PostsController : Controller
     {
         private readonly IPostsService postsService;
@@ -24,18 +27,31 @@ namespace Philopedia.Web.Controllers.Posts
             this.environment = environment;
         }
 
+        public IActionResult ById(int id)
+        {
+            var postViewModel = this.postsService.GetById<PostViewModel>(id);
+            if (postViewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(postViewModel);
+        }
+
+        [Authorize]
         public IActionResult Create()
         {
-            var viewModel = new PostCreateInputModel()
+            var categories = this.categoriesService.GetAll<CategoryDropDownViewModel>();
+            var viewModel = new PostCreateInputModel
             {
-                Categories = this.categoriesService.GetAll<CategoryDropDownViewModel>(),
+                Categories = categories,
             };
-
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PostCreateInputModel input, string image)
+        [Authorize]
+        public async Task<IActionResult> Create(PostCreateInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             if (!this.ModelState.IsValid)
@@ -43,9 +59,9 @@ namespace Philopedia.Web.Controllers.Posts
                 return this.View(input);
             }
 
-            var postId = await this.postsService.CreateAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+            var postId = await this.postsService.CreateAsync(input.Title, input.Content, input.CategoryId, user.Id);
             this.TempData["InfoMessage"] = "Forum post created!";
-            return this.RedirectToAction(nameof(this.Create), new { id = postId });
+            return this.RedirectToAction(nameof(this.ById), new { id = postId });
         }
     }
 }

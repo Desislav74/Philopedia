@@ -61,7 +61,6 @@
             return categories;
         }
 
-
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
             IQueryable<Category> query =
@@ -72,6 +71,14 @@
             }
 
             return query.To<T>().ToList();
+        }
+
+        public T GetByName<T>(string name)
+        {
+            var category = this.categoriesRepository.All()
+                .Where(x => x.Name == name)
+                .To<T>().FirstOrDefault();
+            return category;
         }
     }
 }

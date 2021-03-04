@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using Philopedia.Services.Mapping;
 
 namespace Philopedia.Services.Data.Posts
 {
@@ -13,7 +15,6 @@ namespace Philopedia.Services.Data.Posts
 
     public class PostsService : IPostsService
     {
-        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Post> postsRepository;
 
         public PostsService(IDeletableEntityRepository<Post> postsRepository)
@@ -21,36 +22,45 @@ namespace Philopedia.Services.Data.Posts
             this.postsRepository = postsRepository;
         }
 
-        public async Task<int> CreateAsync(PostCreateInputModel input, string userId, string imagePath)
+        public async Task<int> CreateAsync(string title, string content, int categoryId, string userId)
         {
             var post = new Post
             {
-                CategoryId = input.CategoryId,
-                Content = input.Content,
-                Title = input.Title,
+                CategoryId = categoryId,
+                Content = content,
+                Title = title,
                 UserId = userId,
             };
-            Directory.CreateDirectory($"{imagePath}/posts/");
-            foreach (var image in input.Images)
-            {
-                var extension = Path.GetExtension(image.FileName).TrimStart('.');
-                if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
-                {
-                    throw new Exception($"Invalid image extension {extension}");
-                }
 
-                var dbImage = new Image
-                {
-                    Extension = extension,
-                };
-                post.Images.Add(dbImage);
-                var physicalPath = $"{imagePath}/posts/{dbImage.Id}.{extension}";
-                await using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
-                await image.CopyToAsync(fileStream);
-            }
             await this.postsRepository.AddAsync(post);
             await this.postsRepository.SaveChangesAsync();
             return post.Id;
+        }
+
+
+        public IEnumerable<T> GetByCategoryId<T>(int categoryId, int? take = null, int skip = 0)
+        {
+            var query = this.postsRepository.All()
+                .OrderByDescending(x => x.CreatedOn)
+                .Where(x => x.CategoryId == categoryId).Skip(skip);
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public T GetById<T>(int id)
+        {
+            var post = this.postsRepository.All().Where(x => x.Id == id)
+                .To<T>().FirstOrDefault();
+            return post;
+        }
+
+        public int GetCountByCategoryId(int categoryId)
+        {
+            return this.postsRepository.All().Count(x => x.CategoryId == categoryId);
         }
     }
 }

@@ -4,8 +4,9 @@
     this.ViewData["Title"] = $"Welcome to {GlobalConstants.SystemName}!";
 }
 
-<div class="text-center">
+<div class="text-center m-2">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    <a asp-controller="Posts" asp-action="Create" class="btn btn-primary btn-lg">Create new forum post</a>
 </div>
 
 <div class="row">
@@ -15,13 +16,17 @@
         <div class="card col-md-4 border-primary">
             <img class="card-img-top" src="@category.ImageUrl" alt="@category.Name">
             <div class="card-body">
-                <h5 class="card-title">@category.Name</h5>
+                <a href="@category.Name">
+                    @category.Name (@category.Posts.Count)
+                </a>
+                @*<a asp-controller="Categories" asp-action="ByName"> <h3> @category.Name (@category.Posts.Count)</h3></a>*@
                 <p class="text-truncate">@category.Description</p>
-                <a asp-controller="Posts" asp-action="Create" class="btn btn-primary btn-lg">Create new forum post</a>
             </div>
         </div>
     }
 </div>
 
 <hr />
-    <partial name="_PagingPartial" model="@Model" />   
+<partial name="_PagingPartial" model="@Model" />
+
+

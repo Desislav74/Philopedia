@@ -13,5 +13,7 @@ namespace Philopedia.Services.Data.Categories
         IEnumerable<T> GetAllWhitePaging<T>(int page, int itemsPerPage = 6);
 
         IEnumerable<T> GetAll<T>(int? count = null);
+
+        T GetByName<T>(string name);
     }
 }

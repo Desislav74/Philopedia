@@ -1,4 +1,6 @@
-﻿namespace Philopedia.Web.Controllers.CategoriesController
+﻿using Philopedia.Services.Data.Posts;
+
+namespace Philopedia.Web.Controllers.CategoriesController
 {
     using System;
     using System.Threading.Tasks;
@@ -10,13 +12,16 @@
 
     public class CategoriesController : Controller
     {
+        private const int ItemsPerPage = 5;
         private readonly ICategoriesService categoriesService;
         private readonly IWebHostEnvironment environment;
+        private readonly IPostsService postsService;
 
-        public CategoriesController(ICategoriesService categoriesService, IWebHostEnvironment environment)
+        public CategoriesController(ICategoriesService categoriesService, IWebHostEnvironment environment, IPostsService postsService)
         {
             this.categoriesService = categoriesService;
             this.environment = environment;
+            this.postsService = postsService;
         }
 
         public IActionResult Create()
@@ -42,7 +47,30 @@
                 return this.View(input);
             }
 
-            return this.RedirectToAction(nameof(this.Create));
+            return this.RedirectToAction( "Index", "Home");
+        }
+
+        public IActionResult ByName(string name, int page = 1)
+        {
+            var viewModel =
+                this.categoriesService.GetByName<CategoryViewModel>(name);
+            //if (viewModel == null)
+            //{
+            //    return this.NotFound();
+            //}
+
+            viewModel.Posts = this.postsService.GetByCategoryId<PostInCategoryViewModel>(viewModel.Id, ItemsPerPage, (page - 1) * ItemsPerPage);
+
+            var count = this.postsService.GetCountByCategoryId(viewModel.Id);
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            if (viewModel.PagesCount == 0)
+            {
+                viewModel.PagesCount = 1;
+            }
+
+            viewModel.CurrentPage = page;
+
+            return this.View(viewModel);
         }
     }
 }

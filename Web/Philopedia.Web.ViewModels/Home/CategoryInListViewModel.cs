@@ -1,4 +1,6 @@
-﻿namespace Philopedia.Web.ViewModels.Home
+﻿using System.Collections.Generic;
+
+namespace Philopedia.Web.ViewModels.Home
 {
     using System.Linq;
 
@@ -15,6 +17,8 @@
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public virtual ICollection<Post> Posts { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
