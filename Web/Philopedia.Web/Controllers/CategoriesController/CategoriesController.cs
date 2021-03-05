@@ -1,13 +1,13 @@
-﻿using Philopedia.Services.Data.Posts;
-
-namespace Philopedia.Web.Controllers.CategoriesController
+﻿namespace Philopedia.Web.Controllers.CategoriesController
 {
     using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Philopedia.Services.Data.Categories;
+    using Philopedia.Services.Data.Posts;
     using Philopedia.Web.ViewModels.Categories;
 
     public class CategoriesController : Controller
@@ -47,17 +47,17 @@ namespace Philopedia.Web.Controllers.CategoriesController
                 return this.View(input);
             }
 
-            return this.RedirectToAction( "Index", "Home");
+            return this.RedirectToAction("Index", "Home");
         }
 
         public IActionResult ByName(string name, int page = 1)
         {
             var viewModel =
                 this.categoriesService.GetByName<CategoryViewModel>(name);
-            //if (viewModel == null)
-            //{
-            //    return this.NotFound();
-            //}
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
             viewModel.Posts = this.postsService.GetByCategoryId<PostInCategoryViewModel>(viewModel.Id, ItemsPerPage, (page - 1) * ItemsPerPage);
 

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using Ganss.XSS;
-using Philopedia.Data.Models;
-using Philopedia.Services.Mapping;
-
-namespace Philopedia.Web.ViewModels.Posts
+﻿namespace Philopedia.Web.ViewModels.Posts
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using AutoMapper;
+    using Ganss.XSS;
+    using Philopedia.Data.Models;
+    using Philopedia.Services.Mapping;
+
     public class PostViewModel : IMapFrom<Post>, IMapTo<Post>, IHaveCustomMappings
         {
             public int Id { get; set; }

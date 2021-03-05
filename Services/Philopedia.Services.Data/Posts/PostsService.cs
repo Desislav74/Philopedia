@@ -37,7 +37,6 @@ namespace Philopedia.Services.Data.Posts
             return post.Id;
         }
 
-
         public IEnumerable<T> GetByCategoryId<T>(int categoryId, int? take = null, int skip = 0)
         {
             var query = this.postsRepository.All()
