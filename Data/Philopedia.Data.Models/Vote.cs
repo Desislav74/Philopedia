@@ -7,7 +7,7 @@ namespace Philopedia.Data.Models
     public class Vote : BaseModel<int>
     {
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 

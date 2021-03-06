@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using Philopedia.Services.Mapping;
-
-namespace Philopedia.Services.Data.Posts
+﻿namespace Philopedia.Services.Data.Posts
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
     using Philopedia.Data.Common.Repositories;
     using Philopedia.Data.Models;
+    using Philopedia.Services.Mapping;
     using Philopedia.Web.ViewModels.Posts;
 
     public class PostsService : IPostsService

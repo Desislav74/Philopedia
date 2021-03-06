@@ -1,9 +1,8 @@
 ﻿namespace Philopedia.Web.Areas.Administration.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
     using Philopedia.Services.Data;
     using Philopedia.Web.ViewModels.Administration.Dashboard;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class DashboardController : AdministrationController
     {

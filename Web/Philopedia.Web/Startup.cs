@@ -1,4 +1,5 @@
-﻿using Philopedia.Services.Data.Posts;
+﻿using Philopedia.Services.Data.Comments;
+using Philopedia.Services.Data.Votes;
 
 namespace Philopedia.Web
 {
@@ -20,6 +21,7 @@ namespace Philopedia.Web
     using Philopedia.Data.Seeding;
     using Philopedia.Services.Data;
     using Philopedia.Services.Data.Categories;
+    using Philopedia.Services.Data.Posts;
     using Philopedia.Services.Mapping;
     using Philopedia.Services.Messaging;
     using Philopedia.Web.ViewModels;
@@ -54,6 +56,10 @@ namespace Philopedia.Web
                     {
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -69,6 +75,8 @@ namespace Philopedia.Web
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<IVotesService, VotesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

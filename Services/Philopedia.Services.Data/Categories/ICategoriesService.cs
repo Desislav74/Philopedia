@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Philopedia.Services.Data.Categories
+﻿namespace Philopedia.Services.Data.Categories
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Philopedia.Web.ViewModels.Categories;

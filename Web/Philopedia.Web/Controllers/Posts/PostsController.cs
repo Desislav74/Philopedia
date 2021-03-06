@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace Philopedia.Web.Controllers.Posts
+﻿namespace Philopedia.Web.Controllers.Posts
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
