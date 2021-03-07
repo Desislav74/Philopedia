@@ -1,4 +1,6 @@
-﻿namespace Philopedia.Services.Data.Posts
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Philopedia.Services.Data.Posts
 {
     using System;
     using System.Collections.Generic;
@@ -59,6 +61,25 @@
         public int GetCountByCategoryId(int categoryId)
         {
             return this.postsRepository.All().Count(x => x.CategoryId == categoryId);
+        }
+
+        public async Task UpdateAsync(int id, CreateEditPostInputModel input)
+        {
+            var posts = this.postsRepository.All().FirstOrDefault(x => x.Id == id);
+            posts.Title = input.Title;
+            posts.Content = input.Content;
+            await this.postsRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var category =
+                await this.postsRepository
+                    .All()
+                    .Where(x => x.Id == id)
+                    .FirstOrDefaultAsync();
+            this.postsRepository.Delete(category);
+            await this.postsRepository.SaveChangesAsync();
         }
     }
 }

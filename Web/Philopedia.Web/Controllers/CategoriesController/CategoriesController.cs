@@ -72,5 +72,13 @@
 
             return this.View(viewModel);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            await this.categoriesService.DeleteAsync(id);
+
+            return this.RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -14,5 +14,9 @@
         T GetById<T>(int id);
 
         int GetCountByCategoryId(int categoryId);
+
+        Task UpdateAsync(int id, CreateEditPostInputModel input);
+
+        Task DeleteAsync(int id);
     }
 }

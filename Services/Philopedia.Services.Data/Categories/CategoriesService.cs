@@ -1,4 +1,6 @@
-﻿namespace Philopedia.Services.Data.Categories
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Philopedia.Services.Data.Categories
 {
     using System;
     using System.Collections.Generic;
@@ -55,7 +57,7 @@
         public IEnumerable<T> GetAllWhitePaging<T>(int page, int itemsPerPage = 6)
         {
             var categories = this.categoriesRepository.All()
-                .OrderByDescending(x => x.Id)
+                .OrderByDescending(x => x.CreatedOn)
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>().ToList();
             return categories;
@@ -79,6 +81,17 @@
                 .Where(x => x.Name == name)
                 .To<T>().FirstOrDefault();
             return category;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var category =
+                await this.categoriesRepository
+                    .All()
+                    .Where(x => x.Id == id)
+                    .FirstOrDefaultAsync();
+            this.categoriesRepository.Delete(category);
+            await this.categoriesRepository.SaveChangesAsync();
         }
     }
 }

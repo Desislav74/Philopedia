@@ -1,4 +1,6 @@
-﻿namespace Philopedia.Web.Controllers.Posts
+﻿using Philopedia.Web.ViewModels.Categories;
+
+namespace Philopedia.Web.Controllers.Posts
 {
     using System.Threading.Tasks;
 
@@ -61,6 +63,33 @@
             var postId = await this.postsService.CreateAsync(input.Title, input.Content, input.CategoryId, user.Id);
             this.TempData["InfoMessage"] = "Forum post created!";
             return this.RedirectToAction(nameof(this.ById), new { id = postId });
+        }
+
+
+        public IActionResult Edit(int id)
+        {
+            var inputModel = this.postsService.GetById<CreateEditPostInputModel>(id);
+            return this.View(inputModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, CreateEditPostInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.postsService.UpdateAsync(id, input);
+            return this.RedirectToAction(nameof(this.ById), new { id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            await this.postsService.DeleteAsync(id);
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }
