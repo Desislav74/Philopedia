@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ganss.XSS;
+using Microsoft.EntityFrameworkCore;
 
 namespace Philopedia.Services.Data.Posts
 {
