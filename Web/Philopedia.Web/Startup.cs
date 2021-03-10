@@ -1,7 +1,4 @@
-﻿using Philopedia.Services.Data.Comments;
-using Philopedia.Services.Data.Votes;
-
-namespace Philopedia.Web
+﻿namespace Philopedia.Web
 {
     using System.Reflection;
 
@@ -21,7 +18,9 @@ namespace Philopedia.Web
     using Philopedia.Data.Seeding;
     using Philopedia.Services.Data;
     using Philopedia.Services.Data.Categories;
+    using Philopedia.Services.Data.Comments;
     using Philopedia.Services.Data.Posts;
+    using Philopedia.Services.Data.Votes;
     using Philopedia.Services.Mapping;
     using Philopedia.Services.Messaging;
     using Philopedia.Web.ViewModels;
