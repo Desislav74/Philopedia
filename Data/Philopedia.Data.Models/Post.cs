@@ -32,5 +32,7 @@
         public virtual ICollection<Vote> Votes { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
+
+        public bool Approve { get; set; }
     }
 }

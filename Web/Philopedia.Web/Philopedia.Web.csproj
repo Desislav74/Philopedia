@@ -34,9 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Philopedia.Common\Philopedia.Common.csproj" />
+    <ProjectReference Include="..\..\Data\Philopedia.Data.Common\Philopedia.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\Philopedia.Data.Models\Philopedia.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\Philopedia.Data\Philopedia.Data.csproj" />
+    <ProjectReference Include="..\..\Philopedia.Common\Philopedia.Common.csproj" />
     <ProjectReference Include="..\..\Services\Philopedia.Services.Data\Philopedia.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\Philopedia.Services.Mapping\Philopedia.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\Philopedia.Services.Messaging\Philopedia.Services.Messaging.csproj" />

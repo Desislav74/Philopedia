@@ -18,5 +18,7 @@
         Task UpdateAsync(int id, CreateEditPostInputModel input);
 
         Task DeleteAsync(int id);
+
+        Task ChangeApproveStatusAsync(int postId);
     }
 }

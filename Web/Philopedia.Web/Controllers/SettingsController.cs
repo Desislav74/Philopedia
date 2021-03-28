@@ -1,13 +1,12 @@
 ﻿namespace Philopedia.Web.Controllers
 {
-    using System;
-    using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Mvc;
     using Philopedia.Data.Common.Repositories;
     using Philopedia.Data.Models;
     using Philopedia.Services.Data;
     using Philopedia.Web.ViewModels.Settings;
+    using System;
+    using System.Threading.Tasks;
 
     public class SettingsController : BaseController
     {

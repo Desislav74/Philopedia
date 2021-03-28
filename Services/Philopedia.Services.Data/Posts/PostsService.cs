@@ -1,7 +1,4 @@
-﻿using Ganss.XSS;
-using Microsoft.EntityFrameworkCore;
-
-namespace Philopedia.Services.Data.Posts
+﻿namespace Philopedia.Services.Data.Posts
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +6,9 @@ namespace Philopedia.Services.Data.Posts
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
     using Philopedia.Data.Common.Repositories;
     using Philopedia.Data.Models;
     using Philopedia.Services.Mapping;
@@ -80,6 +79,19 @@ namespace Philopedia.Services.Data.Posts
                     .Where(x => x.Id == id)
                     .FirstOrDefaultAsync();
             this.postsRepository.Delete(category);
+            await this.postsRepository.SaveChangesAsync();
+        }
+
+        public async Task ChangeApproveStatusAsync(int postId)
+        {
+            var statusPost =
+                await this.postsRepository
+                    .All()
+                    .Where(x => x.Id == postId)
+                    .FirstOrDefaultAsync();
+
+            statusPost.Approve = !statusPost.Approve;
+
             await this.postsRepository.SaveChangesAsync();
         }
     }

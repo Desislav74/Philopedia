@@ -5,7 +5,7 @@
 
 <h1 class="display-5">@Model.Name </h1>
 
-@foreach (var post in Model.Posts)
+@foreach (var post in Model.Posts.Where(x=>x.Approve==true))
 {
     <div class="media-body">
         <h4 class="media-heading"><a asp-controller="Posts" asp-action="ById" asp-route-id="@post.Id">@post.Title</a></h4>

@@ -15,6 +15,8 @@
 
         public string Title { get; set; }
 
+        public bool Approve { get; set; }
+
         public string Content { get; set; }
 
         public string ShortContent

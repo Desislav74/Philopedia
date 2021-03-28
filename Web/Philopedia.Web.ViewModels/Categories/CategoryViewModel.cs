@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using Philopedia.Data.Models;
-using Philopedia.Services.Mapping;
-
-namespace Philopedia.Web.ViewModels.Categories
+﻿namespace Philopedia.Web.ViewModels.Categories
 {
-    public class CategoryViewModel : IMapFrom<Category>
+    using System.Collections.Generic;
+
+    using Philopedia.Data.Models;
+    using Philopedia.Services.Mapping;
+
+    public class CategoryViewModel : IMapFrom<Post>, IMapFrom<Category>
     {
         public int Id { get; set; }
 

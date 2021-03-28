@@ -1,11 +1,8 @@
-﻿using Philopedia.Web.ViewModels.Categories;
-
-namespace Philopedia.Web.Controllers.Posts
+﻿namespace Philopedia.Web.Controllers.Posts
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Philopedia.Data.Models;
@@ -18,14 +15,12 @@ namespace Philopedia.Web.Controllers.Posts
         private readonly IPostsService postsService;
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IWebHostEnvironment environment;
 
-        public PostsController(IPostsService postsService, ICategoriesService categoriesService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
+        public PostsController(IPostsService postsService, ICategoriesService categoriesService, UserManager<ApplicationUser> userManager)
         {
             this.postsService = postsService;
             this.categoriesService = categoriesService;
             this.userManager = userManager;
-            this.environment = environment;
         }
 
         public IActionResult ById(int id)
@@ -50,8 +45,8 @@ namespace Philopedia.Web.Controllers.Posts
             return this.View(viewModel);
         }
 
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Create(PostCreateInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -65,6 +60,13 @@ namespace Philopedia.Web.Controllers.Posts
             return this.RedirectToAction(nameof(this.ById), new { id = postId });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            await this.postsService.DeleteAsync(id);
+
+            return this.RedirectToAction("Index", "Home");
+        }
 
         public IActionResult Edit(int id)
         {
@@ -82,14 +84,6 @@ namespace Philopedia.Web.Controllers.Posts
 
             await this.postsService.UpdateAsync(id, input);
             return this.RedirectToAction(nameof(this.ById), new { id });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeletePost(int id)
-        {
-            await this.postsService.DeleteAsync(id);
-
-            return this.RedirectToAction("Index", "Home");
         }
     }
 }

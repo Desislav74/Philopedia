@@ -16,13 +16,9 @@
         <div class="card col-md-4 border-primary">
             <img class="card-img-top" src="@category.ImageUrl" alt="@category.Name">
             <div class="card-body">
-                <a asp-controller="Categories" asp-action="ByName" asp-route-name="@category.Name"> <h3> @category.Name (@category.Posts.Count)</h3></a>
+                <a asp-controller="Categories" asp-action="ByName" asp-route-name="@category.Name"> <h3> @category.Name (@category.Posts.Count(x=>x.Approve==true))</h3></a>
                 <p class="text-hide">@category.Description</p>
             </div>
-            <form method="post">
-                <button class="btn btn-danger" asp-controller="Categories" asp-action="DeleteCategory" asp-route-id="@category.Id">Delete</button>
-            </form>
-            
         </div>
     }
 </div>
