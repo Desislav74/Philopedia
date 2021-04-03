@@ -6,13 +6,13 @@
 
         public const string AdministratorRoleName = "Administrator";
 
-        public const string SystemEmail = "philopedia.04@gmail.com";
+        public const string SystemEmail = "philopedia.3@gmail.com";
 
         public static class AccountsSeeding
         {
-            public const string Password = "123456";
+            public const string Password = "";
 
-            public const string AdminEmail = "niksi@niksi.com";
+            public const string AdminEmail = "";
         }
     }
 }

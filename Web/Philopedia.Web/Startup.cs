@@ -1,5 +1,7 @@
 ﻿namespace Philopedia.Web
 {
+    using System.Reflection;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -22,7 +24,6 @@
     using Philopedia.Services.Mapping;
     using Philopedia.Services.Messaging;
     using Philopedia.Web.ViewModels;
-    using System.Reflection;
 
     public class Startup
     {
