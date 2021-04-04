@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace Philopedia.Web.Controllers.CategoriesController
+﻿namespace Philopedia.Web.Controllers.CategoriesController
 {
+    using System;
+
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Philopedia.Services.Data.Categories;
     using Philopedia.Services.Data.Posts;
     using Philopedia.Web.ViewModels.Categories;
-    using System;
 
     public class CategoriesController : Controller
     {

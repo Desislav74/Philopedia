@@ -1,10 +1,11 @@
 ﻿namespace Philopedia.Web.Controllers
 {
+    using System.Diagnostics;
+
     using Microsoft.AspNetCore.Mvc;
     using Philopedia.Services.Data.Categories;
     using Philopedia.Web.ViewModels;
     using Philopedia.Web.ViewModels.Home;
-    using System.Diagnostics;
 
     public class HomeController : BaseController
     {
