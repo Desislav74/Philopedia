@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Philopedia.Services.Data.Categories
+﻿namespace Philopedia.Services.Data.Categories
 {
     using System;
     using System.Collections.Generic;
@@ -8,6 +6,7 @@ namespace Philopedia.Services.Data.Categories
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using Philopedia.Data.Common.Repositories;
     using Philopedia.Data.Models;
     using Philopedia.Services.Mapping;

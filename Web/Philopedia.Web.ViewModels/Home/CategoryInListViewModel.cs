@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Philopedia.Web.ViewModels.Home
+﻿namespace Philopedia.Web.ViewModels.Home
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using AutoMapper;
@@ -14,9 +13,9 @@ namespace Philopedia.Web.ViewModels.Home
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
         public string ImageUrl { get; set; }
+
+        public string Description { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
 
